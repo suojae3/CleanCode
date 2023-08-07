@@ -8,6 +8,7 @@
 ## 목차
 
 - [Ch01. Getting Started](#ch01-getting-started) <br/>
+- [Ch02. Naming](#ch02-naming) <br/>
 
 
 <br/>
@@ -54,9 +55,15 @@ def add(num1, num2):
 - 하지만 나중에 유지보수나 버그를 잡는 순간이 오게되면 시간이 훨씬 더 많이 걸리게 됩니다.
 - 반면 클린코드를 작성하면 초반에는 시간이 걸릴 수 있으나 나중에가서는 버그를 잡거나 유지보수함에 있어 오히려 시간을 절약하게 됩니다
 
-#
+<br>
 
-### 04. 왜 의미있는 Naming 이 중요한가요?
+--- 
+
+## Ch02. Naming
+
+<br/>
+
+### 01. 왜 의미있는 Naming 이 중요한가요?
 
 ```python
 //bad exmaple
@@ -80,7 +87,7 @@ if (isLoggedIn) {
 
 #
 
-### 05. Variables & Constants 는 어떻게 네이밍하는 것이 좋을까요?
+### 02. Variables & Constants 는 어떻게 네이밍하는 것이 좋을까요?
 
 ```Javascript
 const userData = {...}
@@ -92,7 +99,7 @@ const isValid = true
 
 #
 
-### 06. Function / Methods 는 어떻게 네이밍하는 것이 좋을까요?
+### 03. Function / Methods 는 어떻게 네이밍하는 것이 좋을까요?
 
 ```python
 sendData()
@@ -104,7 +111,7 @@ inputIsValid()
 
 #
 
-### 07. Class는 어떻게 네이밍하는 것이 좋을까요?
+### 04. Class는 어떻게 네이밍하는 것이 좋을까요?
 
 ```python
 class User { ... }
@@ -115,7 +122,7 @@ class RequestBody { ... } //combination nouns
 
 #
 
-### 08. variabe을 네이밍할 때 타입에 따라 어떻게 네이밍하면 좋을까요?
+### 05. variabe을 네이밍할 때 타입에 따라 어떻게 네이밍하면 좋을까요?
 
 - 변수나 속성의 타입이 object, number or string이라면 내용물을 명사로 적어줍니다 (ex. user, database, name, age)
 - 만약 좀더 디테일한 정보를 담고 싶다면 명사형을 조합해줍니다(ex. authenticatedUser, sqlDatabase, firstName, age)
@@ -123,7 +130,7 @@ class RequestBody { ... } //combination nouns
 
 #
 
-### 09. variabe을 네이밍할 때 주의해야할 점이 어떤 것이 있을까요?
+### 06. variabe을 네이밍할 때 주의해야할 점이 어떤 것이 있을까요?
 
 - Variable에 어떤 데이터를 저장했는지 specific하게 담겨야합니다
 - 그냥 `you`, `data`는 너무 광범위합니다. 대신에 `userData`, `person`과 같이 내용물을 Specific하게 네이밍해주어야 합니다.
@@ -133,12 +140,38 @@ class RequestBody { ... } //combination nouns
 
 #
 
-### 10. Functinos & method를 네이밍할 때 주의해야할 점이 어떤 것이 있을까요?
+### 07. Functinos & method를 네이밍할 때 주의해야할 점이 어떤 것이 있을까요?
 
 - function에는 작업을 동사형으로 묘사해줍니다 -> `getUser(...)`, `response.send()`
 - 이때 Boolen을 계산하는 function에는 descriptive하게 네이밍합니다 -> `isValid(...)`, `purchase.isPaid()`
+- 좋은 네이밍을 할 때는 질문하는 것이 좋습니다. 무엇을 process하는거지? 무엇을 save하는거지? 무얼 의도하는거지 (ex. `process()` -> `save()` -> `saveUser()`) 
 
+#
 
+### 08. Class를 네이밍할 때 주의할 점은 어떤 것이 있을까요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/3.png" width="400" height="200"><br/>
+
+- Class는 중복되는 정보가 있으면 안됩니다
+- 예를들어 `class UserOBJ` 대신에 `class User`로 이름짓는 것이 좋습니다
+- 또한 클래스 내에 메서드들이 서로 distinctive 해야합니다. 사진과 같이 무논리로 나열해버리면 나중에 버그찾기가 매우 힘들어집니다
+
+#
+
+### 09. 네이밍할 때 일관성을 지켜야한다는 것이 어떤 뜻인가요?
+
+```python
+database = Database()
+
+database.get_users()
+
+database.get_products() //in line with get_users()
+
+database.fetch_products() // ??? what the..?
+```
+
+- 전체적인 프로그램에서 네이밍함에 있어 일정한 네이밍 규칙을 적용해야합니다
+- 예를들어 `get`을 썼으면 일관되게 `get`을 적용하게 `fetch`는 지양합니다
 
 
 
