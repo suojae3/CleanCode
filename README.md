@@ -115,7 +115,7 @@ class RequestBody { ... } //combination nouns
 
 #
 
-### 08. 속성을 네이밍할 때 타입에 따라 어떻게 네이밍하면 좋을까요?
+### 08. variabe을 네이밍할 때 타입에 따라 어떻게 네이밍하면 좋을까요?
 
 - 변수나 속성의 타입이 object, number or string이라면 내용물을 명사로 적어줍니다 (ex. user, database, name, age)
 - 만약 좀더 디테일한 정보를 담고 싶다면 명사형을 조합해줍니다(ex. authenticatedUser, sqlDatabase, firstName, age)
@@ -133,7 +133,10 @@ class RequestBody { ... } //combination nouns
 
 #
 
-#### 10. Bool타입
+### 10. Functinos & method를 네이밍할 때 주의해야할 점이 어떤 것이 있을까요?
+
+- function에는 작업을 동사형으로 묘사해줍니다 -> `getUser(...)`, `response.send()`
+- 이때 Boolen을 계산하는 function에는 descriptive하게 네이밍합니다 -> `isValid(...)`, `purchase.isPaid()`
 
 
 
