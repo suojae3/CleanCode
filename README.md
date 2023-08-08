@@ -227,7 +227,7 @@ description = 'Actually, writing Clean code can be pretty fun.'
 now = datetime.now()
 formatted_date = now.strftime('%Y-%m-%d %H:%M')
 
-blog_post = BlogPost(summary, description, formatted_date)
+blog_post = BlogPost(title, description, formatted_date)
 
 blog_post.print()
 ```
