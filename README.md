@@ -9,7 +9,9 @@
 
 - [Ch01. Getting Started](#ch01-getting-started) <br/>
 - [Ch02. Naming](#ch02-naming) <br/>
-- [Ch03. Code Structure & Formatting](#ch03-code-structure-formatting)<br/>
+- [Ch03. Code Structure and Formatting](#ch03-code-structure-and-formatting) <br/>
+- [Ch04. Functions and Methods](#ch04-functions-and-methods) <br/>
+
 
 <br/>
 
@@ -237,7 +239,7 @@ blog_post.print()
 
 ---
 
-## Ch03. Code Structure & Formatting
+## Ch03. Code Structure and Formatting
 
 <br/>
 
@@ -351,14 +353,88 @@ class DiskStorage {
 
 ### 05. Horizontal Formatting 에 대해 알려주세요
 
+```python
+# too long
+def insert_file(self, file_name, content):
+  file = open(self.get_directory_path() / file_name, 'w')
+  file.write(contetn_
+  file.close()
+
+# horizontal formatting
+def insert_file(self, file_name, content):
+  file_path = self.get_directory_path() / file_name
+  file = open(file_path, 'w')
+  file.write(contetn_
+  file.close()
+
+```
+
+
 - 수평적인 포맷팅으로는 다음과 같은 사항을 고려합니다
 - 코드를 한 줄에 다넣으려고 하지 않습니다. multiple lines로 나누어 코드의 가독성을 높여줍니다.
-- 
+- 예제처럼 길어져버린 한줄을 객체를 만들어 나누어줍니다.
 
 
+<br/>
+
+---
+
+## Ch04. Functions and Methods
+
+<br/>
+
+### 01. clean function이란 무엇인가요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/9.png" width="400" height="200"><br/>
+
+- 클린코드에서 함수는 정의부분도과 calling부분 모두 클-린해야합니다. -> 두부분 모두 가독성이 뛰어나야합니다
+- 이때 calling부분에서는 아규먼트가 얼마나 많이 정렬되어서 들어가는지가 중요합니다
+- 함수 정의부분에서는 최대한 간결하게 길이를 짧게 정의해야합니다.
+
+#
+
+### 02. 좋은 function이란 어떤 것일까요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/10.png" width="400" height="200"><br/>
+
+- 좋은 함수를 작성할 때는 파라미터의 개수를 줄이는 것이 가장 중요합니다!!
+- 파라미터의 개수를 줄여야 정의도 간결해지고 calling도 간결해집니다!
+- `user.save()`처럼 파라미터가 없는 함수는 이해하기 매우 쉬워집니다. 파라미터는 없앨수록 좋습니다
+- 2개까지는 괜찮습니다. 하지만 파라미터가 3개이상부터는 다른 방법이 있는지 진지하게 고민해봐야합니다.
+
+#
+
+### 03. 만약 하나의 함수에 목적이 다른 파라미터 두 개가 들어가있다면 어떻게 하는 것이 좋을까요?
+
+```javascript
+// 목적이 다른 두 개의 파라미터
+function log(message, isError) {
+  if (isError) {
+    console.error(message);
+  } else {
+    console.log(message);
+  }
+}
+
+log('Hi there!', false);
+
+// 파라미터의 목적에 따라 함수 구분하기
+function log(message) {
+  console.log(message);
+}
+
+function logError(errorMessage) {
+  console.error(errorMessage);
+}
+
+log('Hi there!');
+logError('An error!');
+```
 
 
+- 위의 예제처럼 메세지와 에러체크 같은 목적이 다른 두 개의 파라미터가 들어가 있다면 function을 나누어줌으로서 calling도 나뉘게 되는 두마리 토끼를 잡습니다
 
+45강부터 수강
 
 
 
