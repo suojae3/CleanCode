@@ -173,5 +173,55 @@ database.fetch_products() // ??? what the..?
 - 전체적인 프로그램에서 네이밍함에 있어 일정한 네이밍 규칙을 적용해야합니다
 - 예를들어 `get`을 썼으면 일관되게 `get`을 적용하게 `fetch`는 지양합니다
 
+#
+
+### 10. 아래 `BlogPost()` 클래스의 네이밍을 다시해주세요
+
+```python
+class BlogPost:
+  def __init__(self, title, description, ymdhm):
+    self.title = title
+    self.description = description
+    self.ymdhm = ymdhm
+
+  def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.ymdhm)
+
+summary = 'Clean Code Is Great'
+desc = 'Actually, writing Clean code can be pretty fun.'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+```
+
+- `ymdhm`(년월일시간분)같은 축약어는 알아보기 힘들기 때문에 `date`로 바꿔줍니다. 하지만 어떤 `date`인데? 라는 물음에 답하기 위해 `date_published`로 구체화해줍니다.
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
