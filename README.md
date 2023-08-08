@@ -175,7 +175,7 @@ database.fetch_products() // ??? what the..?
 
 #
 
-### 10. 아래 `BlogPost()` 클래스의 네이밍을 다시해주세요
+### 10. 아래 읽기 힘든 `BlogPost()` 클래스의 네이밍을 다시해주세요
 
 ```python
 class BlogPost:
@@ -194,11 +194,41 @@ desc = 'Actually, writing Clean code can be pretty fun.'
 new_date = datetime.now()
 publish = new_date.strftime('%Y-%m-%d %H:%M')
 
+item = BlogPost(summary, desc, publish)
+
+output(item)
 ```
 
 - `ymdhm`(년월일시간분)같은 축약어는 알아보기 힘들기 때문에 `date`로 바꿔줍니다. 하지만 어떤 `date`인데? 라는 물음에 답하기 위해 `date_published`로 구체화해줍니다.
-- 
+- `output()`은 그래서 어떤 output인지에 대해 불명확하므로 `print_blog_post()`처럼 구체화해줍니다. 이를 통해 아 얘는 블로그 포스트를 프린트하는 함수구나를 쉽게 알 수 있습니다.
+- `item`대신에 구체적으로 `blog_post`로 바꾸어준뒤 같은 범위내 네이밍의 통일성을 부여해줍니다. `item.title` -> `blog_post.title`, `item.description` -> `blog_post.description`, `item.ymdhm` -> `blog_post.date_published`
+- `summary`에 담긴 내용물은 제목이기 때문에 `title`로 바꿔줍니다
+- `desc`같은 축약어는 지양합니다 `decription`으로 바꿔줍니다.
+- `new_today`처럼 애매모호한 네이밍보다는 `now`와 같은 직관적인 네이밍으로 바꿔줍니다
+- `publish`는 동사형이기 때문에 명령문처럼 보입니다. 이는 변수 네이밍의 나쁜예로 data container의 특성을 살려주는 명사형으로 `formatted_date`로 바꿔줍니다.
+- 이를 적용해서 네이밍을 다시한 코드는 아래와 같습니다
+  
+```python
+class BlogPost:
+  def __init__(self, title, description, date_published):
+    self.title = title
+    self.description = description
+    self.date_published = date_published
 
+  def print_blog_post(blog_post):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.date_published)
+
+title = 'Clean Code Is Great'
+description = 'Actually, writing Clean code can be pretty fun.'
+now = datetime.now()
+formatted_date = now.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(summary, description, formatted_date)
+
+print_blog_post(blog_post)
+```
 
 
 
