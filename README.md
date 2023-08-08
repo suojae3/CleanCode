@@ -9,7 +9,7 @@
 
 - [Ch01. Getting Started](#ch01-getting-started) <br/>
 - [Ch02. Naming](#ch02-naming) <br/>
-
+- [Ch03. Code Structure & Formatting](#ch03-code-structure-formatting)<br/>
 
 <br/>
 
@@ -232,6 +232,128 @@ blog_post = BlogPost(title, description, formatted_date)
 blog_post.print()
 ```
 
+
+<br/>
+
+---
+
+## Ch03. Code Structure & Formatting
+
+<br/>
+
+### 1. 지양해야할 주석처리는 어떤 것이 있을까요?
+
+```javascript
+// ***************
+// GLOBALS
+// ***************
+let sqlDriver: any;
+let mongoDbDriver: any;
+
+// ***************
+// CLASSES
+// ***************
+// Acts as an adapter, connecting models to various database engines (SQL, MongoDB)
+class Database {
+  private dbDriver: any; // the database engine to which we connect
+
+  loadDatabaseDriver(driver: string) {
+    if (driver === 'sql') {
+      // Connect to the SQL Driver if "driver" is set to SQL
+      this.dbDriver = sqlDriver;
+    } else {
+      // Otherwise, connect to MongoDB
+      this.dbDriver = mongoDbDriver;
+    }
+  }
+
+  connect() {
+    this.dbDriver.connect(); // This may fail and throw an error
+  }
+
+  insertData(data: any) {
+    this.dbDriver.insert(data); // updates a user
+  }
+
+  findOne(id: string) {
+    // Todo: Needs to be implemented
+  }
+
+  // findMany(filter: any) {
+  //   this.dbDriver.find(filter);
+  // }
+}
+```
+
+- 대표적으로 4가지 않좋은 주석처리가 있습니다 -> **중복되는 정보표기** / **문단을 나누는 주석처리** / **잘못된 정보 표기** / **코멘트 처리된 코드** 입니다.
+- 위의 예제코드를 적용하자면 중복되는 정보표기와 문단을 나누는 주석처리는 전역변수와 클래스를 주석으로 나타낸 부분입니다. 이미 `class`라는 키워드가 있기 때문에 위와같은 주석처리는 지양해야합니다
+- 잘못된 정보표기는 // updates a user 부분입니다. 이부분은 insert를 하는거지 update하는 것이 아니기 때문입니다.
+- 주석 처리된 코드는 과감히 지우는게 좋습니다. 주석처리된 `findMany()` 는 지워주는 것이 좋습니다.
+
+#
+
+### 02. 좋은 주석처리는 어떤 것들이 있을까요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/4.png" width="400" height="200">
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/5.png" width="400" height="200"><br/>
+
+- 좋은 주석처리로는 **복잡한 코드 설명 주석** / **왜 이 네이밍이 적절한지 설명해주는 주석** / **주의 문구** / **무얼 작성해야 좋을지 알려주는 주석** 이 있습니다
+
+#
+
+### 03. "Code Formatting"이란 무엇인가요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/6.png" width="400" height="200">
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/7.png" width="400" height="200"><br/>
+
+- 코드포멧팅이란 코드의 가독성과 이해도를 높여주는 일련의 작업입니다
+- 이러한 코드포멧팅에는 수직적 포멧팅과 수평적 포멧팅이 있습니다.
+- 수직적 포멧팅에는 줄간격이나 코드의 그룹핑에 대한 것들입니다.
+- 수평적 포멧팅은 들여쓰기나 띄어쓰기 등에 관한 것들입니다.
+- 이러한 포멧팅은 언어마다 서로다른 관습을 가지고 있습니다
+
+#
+
+### 04. Vertical formatting 에 대해 설명해주세요
+
+```javascript
+const path = require('path');
+const fs = require('fs');
+
+class DiskStorage {
+
+  constructor(storageDirectory) {
+    this.storagePath = path.join(__dirname, storageDirectory);
+    this.setupStorageDirectory();
+  }
+
+  //... other method
+
+
+  setTimeout(function () {
+    logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+    logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+    userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+    userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/8.png" width="400" height="200"><br/>
+
+
+- 코드는 마치 에세이처럼 위에서 아래도 술술 읽혀야합니다. 지나치게 많은 "jump"를 지양해야합니다
+- 이를 달성하기 위한 방법으로 클래스등을 사용하여 파일을 잘개 쪼개는 방법이 있습니다.
+- 만약 컨셉(area)이 다른 코드면 반드시 Spacing을 두어야합니다. 예제처럼 영역이 다른 코드는 스페이싱을 넣어줍니다
+- 반대로 컨셉이 같으면 붙여줍니다. 예제에서 `setTimeout`을 보면 같은 컨셉의 데이터는 붙여주는 것이 좋습니다.
+- 비슷한 컨셉끼리 가까이서 써주는 것이 좋습니다. 위의 예시처럼 `setupStorageDiretory()`를 생성하면 가까이에서 정의해주는 것이 좋습니다.
+
+#
+
+### 05. Horizontal Formatting 에 대해 알려주세요
+
+- 수평적인 포맷팅으로는 다음과 같은 사항을 고려합니다
+- 코드를 한 줄에 다넣으려고 하지 않습니다. multiple lines로 나누어 코드의 가독성을 높여줍니다.
+- 
 
 
 
