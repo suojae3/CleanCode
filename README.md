@@ -206,6 +206,8 @@ output(item)
 - `desc`같은 축약어는 지양합니다 `decription`으로 바꿔줍니다.
 - `new_today`처럼 애매모호한 네이밍보다는 `now`와 같은 직관적인 네이밍으로 바꿔줍니다
 - `publish`는 동사형이기 때문에 명령문처럼 보입니다. 이는 변수 네이밍의 나쁜예로 data container의 특성을 살려주는 명사형으로 `formatted_date`로 바꿔줍니다.
+- 마지막 출력할때 `print_blog_post(blog_post)` 이렇게 네이밍이 중복되기 때문에 함수정의를 그냥  `print(self)`로 바꿔줍니다
+
 - 이를 적용해서 네이밍을 다시한 코드는 아래와 같습니다
   
 ```python
@@ -215,7 +217,7 @@ class BlogPost:
     self.description = description
     self.date_published = date_published
 
-  def print_blog_post(blog_post):
+  def print(self):
     print('Title: ' + blog_post.title)
     print('Description: ' + blog_post.description)
     print('Published: ' + blog_post.date_published)
@@ -227,9 +229,8 @@ formatted_date = now.strftime('%Y-%m-%d %H:%M')
 
 blog_post = BlogPost(summary, description, formatted_date)
 
-print_blog_post(blog_post)
+blog_post.print()
 ```
-
 
 
 
