@@ -524,17 +524,116 @@ console.log(customer);
 
 #
 
-### 07. 
+### 07. functiond은 한가지 목적의 일만 해야합니다. 여기서 "한가지 목적의 일"이란 대체 무엇인가요?
 
-  
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/11.png" width="400" height="200"><br/>
 
+- "one thing"이라 함은 "작업"과 "추상화"에 있어서 하나의 목적을 가지는 것입니다.
+- "작업"을 예로들자면 로그인을 할 때 Validate 과 Save user input 두 작업이 이루어집니다
+- "추상화"를 예로 들자면 사용자 이메일이 있습니다 @을 포함한 이메일은 low level api 작업에 필요한 string이지만 이외 아이디나 패스워드는 high level 작업에서 필요한 string입니다.
 
+#
 
+### 08. 추상화 레벨에 대해서 좀 더 설명해주세요
 
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/12.png" width="400" height="200"><br/>
 
+- 추상화에 있어서 high level과 low level이 있습니다
+- High level의 예로는 `isEmail(email)` 함수가 있습니다. 우리는 여기서 이메일이 어떻게 인증되는지는 들여다보지않고 그냥 true or false만 따집니다
+- Low level의 예로는 `emil.includes('@')`함수가 있습니다. 여기서 우리는 이메일이 어떻게 인증되는지 들여다봅니다. ('@'포함 여부)
 
+#
 
+### 09. 추상화의 관점에서 바람직한 함수는 어떤 것인가요?
 
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/13.png" width="400" height="200"><br/>
+
+- 하나의 함수 안에는 하나의 추상화 레벨만이 있어야합니다
+- 추상화의 레벨이 high인지 row인지는 상관없습니다. 하지만 하나의 추상화 레벨이 있어야하고 그러한 추상화 레벨에 대한 답은 함수명과 일관성을 보여야합니다.
+- 만약 예시와 같이 `saveUser()`함수는 사실상 low 레벨의 추상화가 들어와서는 안됩니다. `saveUser()`의 결과는 단순히 유저의 정보를 저장하는 것이고 이는 high 레벨의 작업이기 때문입니다.
+
+<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/14.png" width="400" height="200"><br/>
+
+- 추상화 레벨이 뒤섞인 경우는 위와 같습니다. 단순히 이메일 확인할거면 들여다보는 것과 같은 low level로 하지말고 high level로만 처리해줍니다
+
+#
+
+### 10. 언제 함수를 나누고 합치는 것이 좋을까요?
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/15.png" width="400" height="200"><br/>
+
+- 같은 작업을 하는 분리된 함수는 네임드 파라미터를 두어 합쳐줍니다. 예를들어`setAge()`와 `setName()`이 분리되어 있다면 `age`와 `name`을 파라미터로 두는 `user.update()`함수를 만들어줍니다
+- 만약 추상화 레벨이 다른 작업이 묶여있는 함수는 분리시켜주거나 추상화레벨을 같게 만들어줍니다. 위의 예시와 같이 low level 추상화을 `saveNewUser()`에 맞게 high level로 바꾸어 줍니다.
+
+#
+
+### 11. 예제 함수를 리팩토링 해주세요
+
+```javascript
+function createUser(email, password) {
+  if (!email || !email.includes('@') || !password || password.trim() === '') {
+    console.log('Invalid input!');
+    return;
+  }
+
+  const user = {
+    email: email,
+    password: password,
+  };
+
+  database.insert(user);
+}
+```
+
+- 먼저 `createUser()`와 어긋나는 사용자 이메일 인증함수부터 분리시켜줍니다
+- 이때 이메일 인증함수에 부정문을 바꿔주고 드모르간 법칙을 써서 긍정문으로 바꿔줍니다 (느낌표 제거)
+- 에러메세지도 목적이 다르기 때문에 함수를 분리시켜줍니다.
+- 유저 정보를 저장하는 함수도 분리시켜줍니다.
+- 이와같은 방법으로 하나의 목적을 가진 함수로 계속 분리시켜주면 아래와 같은 코드로 리팩토링이 가능합니다.
+
+```javascript
+function handleCreateUserRequest(request) {
+  try {
+    createUser('test@test.com', 'testers');
+  } catch (error) {
+    showErrorMessage(error.message);
+  }
+}
+
+function createUser(email, password) {
+  validateInput(email, password);
+  saveUser(email, password);
+}
+
+function validateInput(email, password) {
+  if (!inputIsValid(email, password)) {
+    throw new Error('Invalid input!');
+  }
+}
+
+function inputIsValid(email, password) {
+  return email && email.includes('@') && password && password.trim() !== '';
+}
+
+function showErrorMessage(message) {
+  console.log(message);
+}
+
+function saveUser(email, password) {
+  const user = {
+    email: email,
+    password: password,
+  };
+
+  database.insert(user);
+}
+```
+
+#
+
+### 52강부터
 
 
 
