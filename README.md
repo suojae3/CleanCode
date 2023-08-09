@@ -430,18 +430,102 @@ function logError(errorMessage) {
 log('Hi there!');
 logError('An error!');
 ```
-
-
 - 위의 예제처럼 메세지와 에러체크 같은 목적이 다른 두 개의 파라미터가 들어가 있다면 function을 나누어줌으로서 calling도 나뉘게 되는 두마리 토끼를 잡습니다
 
-45강부터 수강
+#
+
+### 04. 파라미터가 여러개일 때 생성자는 어떻게 처리하면 좋을까요?
+
+```javascript
+  //bad example
+class User {
+  constructor(name, age, email) {
+    this.name = name;
+    this.age = age;
+    this.email = email;
+  }
+}
+
+const user = new User('Max', 31, 'max@test.com');
+
+//good example
+class User {
+  constructor(userData) {
+    this.name = userData.name;
+    this.age = userData.age;
+    this.email = userData.email;
+  }
+}
+
+const user = new User({ name: 'Max', email: 'max@test.com', age: 31 });
+```
+- 여러개의 파라미터가 다른 목적을 가질경우네임드 생성자를 활용하는 것이 좋습니다
+- 앞선 나쁜예를 보면 calling 할 때 아규먼트 값이 직관적으로 인식되지 않습니다
+- 하지만 함수 선언시 네임드 파라미터를 활용하면 calling의 아규먼트를 직관적으로 인식할 수 있습니다
+
+#
+
+### 05. 단일 목적 파라미터가 여러개일 경우는 어떻게 처리하는 것이 좋을까요?
+
+```javascript
+function sumUp(...numbers) {
+  let sum = 0;
+  for (const number of numbers) {
+    sum += number;
+  }
+  return sum;
+}
+
+const total = sumUp(10, 19, -3, 22, 5, 100);
+```
+
+- 만약 모든 수를 더하는 것처럼 모든 파라미터가 하나의 목적으로 쓰인다면 단순 나열식으로 하는 것이 좋습니다. (네임드 파라미터 사용 x)
+
+#
+
+### 06. 왜 output parameter를 없애는 것이 좋은가요?
+
+```javascript
+//output parameter
+function addId(user) {
+  user.id = 'u1';
+}
+
+const user = { name: 'Max' };
+addId(user);
+
+console.log(user);
+```
+- 파라미터의 개수도 문제가 되지만 어떤 파라미터인지 종류에 따라서도 문제가 될 수 있습니다.
+- 먼저 output parameter란 함수내에서 method로 전달된 파라미터를 사용하는 것입니다.
+- 특정 라이브러리나 프레임워크를 사용할 때 output parameter를 사용할 수 있으나 결과값이 예측되지 않는다면 사용해선 안됩니다.
+- 예를 들어 위 코드에서는 `addID`의 파라미터로 `user`를 받고 있습니다. 하지만 `user`는 어떤 값이 올지 전혀 예측할 수 없습니다. 이렇게 `user`같은 파라미터를 output parameter라 부르고 특히 예측되지 않기 때문에 이렇게 써서는 안됩니다.
+- 이러한 output parameter는 사용하지 않는 것이 좋으며 특히 결과값이 예측되지 않을 때는 사용하지 않는 것이 좋습니다.
+
+```javascript
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+
+  addId() {
+    this.id = 'u1';
+  }
+}
+
+const customer = new User('Max');
+customer.addId();
+console.log(customer);
+```
+- 위와 같은 output parameter를 없애주기 위해서는 객체지향프로그래밍을 통해 해결할 수 있습니다
+- `user.addId()`와 같이 함수객체를 만들어 아규먼트를 없애줌으로써 앞선 output parameter 문제를 해소합니다
 
 
+#
 
+### 07. 
 
-
-
-
+  
 
 
 
