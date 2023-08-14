@@ -633,8 +633,22 @@ function saveUser(email, password) {
 
 #
 
-### 52강부터
+### 12. 코드 중복은 언제나 같은 코드일 때만 일어나는 건가요?
 
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/16.png" width="400" height="200"><br/>
 
+- 그렇지 않습니다. 기능상으로 같은 것을 다른 코드로 수행할 때도 duplicate하다고 볼 수 있습니다.
+- 위 코드의 경우 이미 인풋값으로 이메일 형식인지 확인함에도 불구하고 채널생성에서 또다시 이메일 형식인지 체크하는 중복된 기능이 발생하고 있습니다.
+- 이렇경우 아래와 같이 emailIsValide 함수를 만들어서 중복을 방지합니다
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/17.png" width="400" height="200"><br/>
+
+#
+
+### 13. 그렇다면 항상 granular 할수록 가독성이 높아지는걸까요?
+
+- 그렇지 않습니다. 무지성으로 granular한다고 가독성이 높아지지는 않습니다. 
+- 그대로 둔 경우보다 granular 한게 더 길어지면 좋지 않습니다.
+- 그리고 만약 reasonable한 변수명을 짓기 힘들다면 granular는 지양해야 합니다.
 
 
